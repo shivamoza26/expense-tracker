@@ -1,0 +1,39 @@
+{
+  "info": {
+    "name": "PulsePay Expense Tracker API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Create Expense (Current Date & Time Default)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "http://localhost:8080/api/v1/expenses", "host": ["localhost"], "port": "8080", "path": ["api", "v1", "expenses"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 215.00,\n  \"merchantName\": \"Instamart\",\n  \"note\": \"UPI\",\n  \"categoryId\": 2,\n  \"locationName\": \"Powai, Mumbai\",\n  \"latitude\": 19.1176,\n  \"longitude\": 72.9060,\n  \"locationSource\": \"CURRENT_GPS\"\n}"
+        }
+      }
+    },
+    {
+      "name": "2. Reject Future Date Validation (Returns 400 Bad Request)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "http://localhost:8080/api/v1/expenses", "host": ["localhost"], "port": "8080", "path": ["api", "v1", "expenses"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 500.00,\n  \"merchantName\": \"Future Store\",\n  \"transactionDate\": \"2028-12-31\",\n  \"categoryId\": 2\n}"
+        }
+      }
+    },
+    {
+      "name": "3. Get All Expenses / Filter by Category",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:8080/api/v1/expenses?categoryId=2", "host": ["localhost"], "port": "8080", "path": ["api", "v1", "expenses"], "query": [{"key": "categoryId", "value": "2"}] }
+      }
+    }
+  ]
+}
